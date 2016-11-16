@@ -1,0 +1,36 @@
+﻿@model RegistrosDeUsuarios.Models.UserLogin
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<div class="container">
+    <div class="card card-conteiner">
+        <h2 class="titleLogin">Iniciar Sesión.</h2>
+        @using (Html.BeginForm("Usuarios","Home", FormMethod.Post, new {@class="form-signin"}))
+        {
+            <div>
+                @Html.TextBoxFor(dl=>dl.Email, new {@class="form-control", @placeholder="Email"})
+                @Html.ValidationMessageFor(dl=>dl.Email,"", new {@class="text-danger"})
+            </div><br/>
+            <div>
+                @Html.PasswordFor(dl => dl.Password, new { @class = "form-control", @placeholder = "Password" })
+                @Html.ValidationMessageFor(dl => dl.Password, "", new { @class = "text-danger" })
+            </div><br/>
+            <input type="submit" value="Entrar." class="btn btn-signin"/>
+        }<br/>
+        @Html.ActionLink("Sing In", "SingIn", "Home", new { }, new { @class="btn btn-success"})
+
+        @{
+            if (!string.IsNullOrEmpty(ViewBag.Message))
+            {
+                <script>
+                    alert("El Email o Password Incorrectos.");
+
+                    document.location = "Index";
+                </script>
+            }
+        }
+    </div>
+</div>
